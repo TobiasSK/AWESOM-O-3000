@@ -37,6 +37,11 @@ namespace DiscordBot
                 await e.Channel.SendMessage("World");
             });
 
+            commands.CreateCommand("Niggah").Alias(new string[] { "yo", "homie" }).Do(async (e) =>
+            {
+                await e.Channel.SendMessage("Nigga, please!");
+            });
+
             client.ExecuteAndWait(async() =>
                 { 
                 await client.Connect("MTk3NDUzODUwNDY5MzM1MDUx.C2g1eg.SJtbmHXDhsIbxorIXjkxQV2VDLs", TokenType.Bot);
