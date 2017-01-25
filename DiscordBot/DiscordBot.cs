@@ -38,14 +38,22 @@ namespace DiscordBot
                 await e.Channel.SendMessage("World");
             });
 
+
             client.UserJoined += async (a, e) =>
             {
-                var channel = e.Server.FindChannels("general", ChannelType.Voice).FirstOrDefault();
+                var channel = e.Server.FindChannels("general", ChannelType.Text).FirstOrDefault();
 
                 var user = e.User;
 
-                await channel.SendMessage(string.Format("{e} has joined the channel!", user.Name));
+                await channel.SendMessage(string.Format("{0} has joined the channel!", user.Name));
             };
+
+            commands.CreateCommand("Niggah").Alias(new string[] { "yo", "homie" }).Do(async (e) =>
+            {
+                await e.Channel.SendMessage("Nigga, please!");
+            });
+
+
             client.ExecuteAndWait(async() =>
                 { 
                 await client.Connect("MTk3NDUzODUwNDY5MzM1MDUx.C2g1eg.SJtbmHXDhsIbxorIXjkxQV2VDLs", TokenType.Bot);
