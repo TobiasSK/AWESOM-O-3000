@@ -17,6 +17,7 @@ namespace DiscordBot
             {
                 input.LogLevel = LogSeverity.Info;
                 input.LogHandler = Log;
+                
             });
 
             
@@ -26,11 +27,12 @@ namespace DiscordBot
                 
                 input.PrefixChar = '!';
                 input.AllowMentionPrefix = true;
+                input.HelpMode = HelpMode.Public;
             });
 
             commands = client.GetService<CommandService>();
 
-            commands.CreateCommand("Hello").Do(async (e) =>
+            commands.CreateCommand("Hello").Alias(new string[] {"hi", "sup" }).Do(async (e) =>
             {
                 await e.Channel.SendMessage("World");
             });
