@@ -39,19 +39,30 @@ namespace DiscordBot
             });
 
 
-            client.UserJoined += async (a, e) =>
+            
+
+            commands.CreateCommand("Niggah").Alias(new string[] { "yo", "homie" }).Do(async (e) =>
             {
-                var channel = e.Server.FindChannels("general", ChannelType.Text).FirstOrDefault();
+                await e.Channel.SendMessage("Nigga, please!");
+            });
+
+            client.UserJoined += async (s, e) =>
+            {
+                var channel = e.Server.FindChannels("gay-mers", ChannelType.Text).FirstOrDefault();
 
                 var user = e.User;
 
                 await channel.SendMessage(string.Format("{0} has joined the channel!", user.Name));
             };
 
-            commands.CreateCommand("Niggah").Alias(new string[] { "yo", "homie" }).Do(async (e) =>
+            client.UserLeft += async (s, e) =>
             {
-                await e.Channel.SendMessage("Nigga, please!");
-            });
+                var channel = e.Server.FindChannels("gay-mers", ChannelType.Text).FirstOrDefault();
+
+                var user = e.User;
+
+                await channel.SendMessage(string.Format("{0} has left the channel", user.Name));
+            };
 
 
             client.ExecuteAndWait(async() =>
