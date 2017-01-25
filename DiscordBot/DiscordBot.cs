@@ -3,6 +3,8 @@ using Discord.Commands;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using System.Linq;
+
 
 namespace DiscordBot
 {
@@ -41,10 +43,32 @@ namespace DiscordBot
                 await e.Channel.SendMessage("World");
             });
 
+
+            
+
             commands.CreateCommand("Niggah").Alias(new string[] { "yo", "homie" }).Do(async (e) =>
             {
                 await e.Channel.SendMessage("Nigga, please!");
             });
+
+            client.UserJoined += async (s, e) =>
+            {
+                var channel = e.Server.FindChannels("gay-mers", ChannelType.Text).FirstOrDefault();
+
+                var user = e.User;
+
+                await channel.SendMessage(string.Format("{0} has joined the channel!", user.Name));
+            };
+
+            client.UserLeft += async (s, e) =>
+            {
+                var channel = e.Server.FindChannels("gay-mers", ChannelType.Text).FirstOrDefault();
+
+                var user = e.User;
+
+                await channel.SendMessage(string.Format("{0} has left the channel", user.Name));
+            };
+
 
             client.ExecuteAndWait(async() =>
                 { 
