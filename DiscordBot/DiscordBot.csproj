@@ -78,6 +78,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,12 +92,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adminpanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Adminpanel.Designer.cs">
+      <DependentUpon>Adminpanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="DiscordBot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="awesome audio\airhorn_clownfull.dca" />
+    <None Include="awesome audio\airhorn_truck.dca" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +119,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Adminpanel.resx">
+      <DependentUpon>Adminpanel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,11 @@
 ﻿using Discord;
 using Discord.Commands;
 using System;
+using System.Threading;
+using System.Windows.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace DiscordBot
 {
@@ -10,6 +13,8 @@ namespace DiscordBot
     {
         DiscordClient client;
         CommandService commands;
+        CommandEventArgs adminPanelArgs;
+        Form AdminPanel;
 
         public DiscordBot()
         {
@@ -76,8 +81,28 @@ namespace DiscordBot
                 await client.Connect("MTk3NDUzODUwNDY5MzM1MDUx.C2g1eg.SJtbmHXDhsIbxorIXjkxQV2VDLs", TokenType.Bot);
                 });
 
+
+            /* MULTITHREADED ADMIN PANEL*/
+            commands.CreateCommand("adminpanel").Do((e) =>
+            {
+                AdminPanel = new Adminpanel(client, e);
+
+                var thread = new Thread(OpenAdminPanel);
+
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+
+            });
+
+
+
         }
 
+        private void OpenAdminPanel()
+        {
+            Application.Run(AdminPanel);
+        }
+        
         private async Task DoAnnouncement(CommandEventArgs e)
         {
             var channel = e.Server.FindChannels(e.Args[0], ChannelType.Text).FirstOrDefault();
@@ -114,10 +139,26 @@ namespace DiscordBot
             
         }
 
+
         private void Log(object sender, LogMessageEventArgs e)
         {
             Console.WriteLine(e.Message);
 
         }
+
+        
+
+        /*private void Play()
+        {
+
+        }
+
+        private void SoundCollection()
+        {
+            
+        }
+        */
+
+
     }
 }
